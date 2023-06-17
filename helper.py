@@ -6,12 +6,12 @@ import time
 
 # Funcao executada pelas Threads;
 def threadSolver(game, lineList, id):
+    lines = list(lineList)
     for key in game:
-        for item in lineList:
+        for item in lines:
             if(len(set(game[key][item])) != 9):
-                errorList[id].append(str(key)+str(item+1))
-    return errorList
-
+                errorDict[id].append(str(key)+str(item+1))
+    return 0
 # Processa a matriz e cria um dicionario com as informacoes necessarias para validacao
 def matrixProcessing(matrix):
     puzzleLines = [matrix[i:i+9] for i in range(0, len(matrix), 9)] # Lista com o quebra cabeca dividido em linhas
@@ -43,13 +43,12 @@ def checkResult(game, gameI, pid, n_threads):
 
         # Divisao das linhas entre threads
         listaI = [*range(9)] # Lista dos indices
-        print(gameDict)
         threadLines = more_itertools.distribute(n_threads, listaI)
 
-        #Craicao das threads e diconario global de erros
+        #Criacao das threads e diconario global de erros
         threadList = []
-        global errorList 
-        errorList = {k+1: [] for k in range(n_threads)}
+        global errorDict
+        errorDict = {k+1: [] for k in range(n_threads)}
 
         # Inicializacao das threads
         for i in range(n_threads):
@@ -58,6 +57,18 @@ def checkResult(game, gameI, pid, n_threads):
         for i in range(n_threads):
             threadList[i].join()
 
-        print(errorList)
-        #print(errors)
+        # Extrai informacoes necessarias para o print
+        errorCount = 0
+        errorList = []
+        for key in errorDict:
+            threadErrors = ', '.join(list(errorDict[key]))
+            errorCount += len(list(errorDict[key]))
+            errorStr = ('T%i: %s' %(key, threadErrors))
+            errorList.append(errorStr)
+        
+        # Print dos erros
+        if errorCount > 0:
+            print('Processo %i: %i erros encontrados (%s)' %(pid, errorCount, '; '.join(errorList) ))
+        else:
+            print('Processo %i: %i erros encontrados' %(pid, errorCount))
 

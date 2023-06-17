@@ -8,12 +8,12 @@ import time
 start_time = time.time()
 
 n_process = 1
-n_threads = 1
+n_threads = 2
 processList = []
 
 puzzleList = [] # Lista com os quebra cabecas
 # Abre o arquivo e divide os cenarios:
-with open("input-sample.txt", "r") as f:
+with open("sudoku_boards.txt", "r") as f:
     contents = f.read()
     puzzleList = contents.split('\n\n')
 
@@ -42,4 +42,3 @@ if __name__ == '__main__': # caso for o programa principal
         process.join()
 
     print("--- %s seconds ---" % (time.time() - start_time))
-#checkResult()
