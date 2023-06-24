@@ -12,6 +12,7 @@ def threadSolver(game, lineList, id):
             if(len(set(game[key][item])) != 9):
                 errorDict[id].append(str(key)+str(item+1))
     return 0
+
 # Processa a matriz e cria um dicionario com as informacoes necessarias para validacao
 def matrixProcessing(matrix):
     puzzleLines = [matrix[i:i+9] for i in range(0, len(matrix), 9)] # Lista com o quebra cabeca dividido em linhas
@@ -35,10 +36,11 @@ def matrixProcessing(matrix):
 
 # Funcao geral executada pelos processos;
 def checkResult(game, gameI, pid, n_threads):
-    for key in gameI:
+    ids = list(gameI)
+    for key in ids:
 
         # Print do processo
-        print('Processo %i: resolvendo quebra-cabeças %i' %(pid, key))
+        #print('Processo %i: resolvendo quebra-cabeças %i' %(pid, key))
         gameDict = matrixProcessing(game[key])
 
         # Divisao das linhas entre threads
@@ -68,7 +70,11 @@ def checkResult(game, gameI, pid, n_threads):
         
         # Print dos erros
         if errorCount > 0:
-            print('Processo %i: %i erros encontrados (%s)' %(pid, errorCount, '; '.join(errorList) ))
+            #print('Processo %i: %i erros encontrados (%s)' %(pid, errorCount, '; '.join(errorList) ))
+            pass
         else:
-            print('Processo %i: %i erros encontrados' %(pid, errorCount))
+            #print('Processo %i: %i erros encontrados' %(pid, errorCount))
+            pass
+        
+    return 0
 
