@@ -16,9 +16,9 @@ def checkArgs(n_args, n_process, n_threads, n_sol):
         print("Entrada deve ser:$ python3 sudoku.py <arquivo soluções> <número processos trabalhadores> <número threads por processo trabalhador>")
         print("Número de threads por processo trabalhador deve ser positivo")
         return False
-    if (n_threads > 9*3):  # checa número de threads
+    if (n_threads > 9):  # checa número de threads
         print("Entrada deve ser:$ python3 sudoku.py <arquivo soluções> <número processos trabalhadores> <número threads por processo trabalhador>")
-        print("Número de threads por processo trabalhador deve ser menor ou igual a 27")
+        print("Número de threads por processo trabalhador deve ser menor ou igual a 9")
         return False
     return True
 
