@@ -21,3 +21,4 @@ def save_sudoku_boards_to_file(file_path, num_boards):
                 file.write('\n')
 
 save_sudoku_boards_to_file('sudoku_boards.txt', 300000)
+print('done')
